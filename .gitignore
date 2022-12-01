@@ -1,0 +1,7 @@
+.vscode
+.idea
+.DS_Store
+*.out
+*.o
+*.a
+*.class
