@@ -16,7 +16,7 @@ for line in lines:
 	beacons.add(beacon)
 	sensors[sensor] = manhattan_distance(sensor, beacon)
 
-search_area = 20
+search_area = 4000000
 ranges = []
 
 def fix_overlaps(row):
@@ -33,7 +33,7 @@ def fix_overlaps(row):
 				n[0] = r[0]
 				merged = True
 				actions += 1
-			if r[0] <= 1 + n[1] and n[1] < r[1]:
+			if r[0] <= 1 + n[1] and n[1] <= r[1]:
 				n[1] = r[1]
 				merged = True
 				actions += 1
@@ -66,28 +66,8 @@ for y in range(0, search_area):
 	for sensor, distance in sensors.items():
 		diff = manhattan_distance(sensor, (sensor[0], y))
 		if diff <= distance:
-			merge_range(y, sensor, diff)
+			merge_range(y, sensor, distance - diff)
 	if len(ranges[y]) > 1:
-		print("nonoverlapping ranges:", y, ranges[y])
 		goal = (ranges[y][0][1] + 1, y)
 
-for y in range(0, search_area):
-	for x in range(0, search_area + 1):
-		exists = False
-		for ran in ranges[y]:
-			if ran[0] <= x or x <= ran[1]:
-				exists = True
-		if (x, y) in sensors.keys():
-			print("S", end = "")
-		elif (x, y) in beacons:
-			print("B", end = "")
-		elif exists:
-			print("#", end = "")
-		else:
-			print(".", end = "")
-	print(y)
-
-for l in ranges:
-	print(l)
-
-print(4000000 * goal[0] + goal[1])
+print(goal, "=", 4000000 * goal[0] + goal[1])
