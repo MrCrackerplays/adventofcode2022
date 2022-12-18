@@ -3,6 +3,6 @@ TWO := puzzle2.py
 
 run:
 	python $(ONE)
-	# python $(TWO)
+	python $(TWO)
 
 .PHONY: run
