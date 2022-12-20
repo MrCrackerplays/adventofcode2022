@@ -9,11 +9,7 @@ for i in range(len(input)):
 def safe(pos):
 	if pos == 0:
 		return 0
-	if pos < 0:
-		pos = pos % ((len(positions) - 1) * (pos / abs(pos)))
-	elif pos >= len(positions):
-		pos = (pos) % (len(positions) - 1)
-	return pos
+	return pos % ((len(positions) - 1) * (pos / abs(pos)))
 
 for i in range(len(positions)):
 	position = positions.index(i)
